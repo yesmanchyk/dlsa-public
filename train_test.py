@@ -512,7 +512,10 @@ def test(Data,
         logging.debug(f"weights selected shape {all_weights[t*retrain_freq:min((t+1)*retrain_freq,T-length_training),assets_to_trade].shape}")
         logging.debug(f"sum(assets_to_trade) {np.sum(assets_to_trade)}")
         all_weights[t*retrain_freq:min((t+1)*retrain_freq,T-length_training),assets_to_trade] = w
-        if 'cpu' not in device:
+        logging.info(f'device={device}')
+        if 'mps' in device:
+            torch.mps.empty_cache()
+        elif 'cpu' not in device:
             with torch.cuda.device(device):
                 torch.cuda.empty_cache() 
         
@@ -630,7 +633,11 @@ def estimate(Data,
     turnovers = turns 
     short_proportions = shorts
     all_weights= weights
-    if 'cpu' not in device:
+    logging.info(f'device={device}')
+    if 'mps' in device:
+        # torch.backends.mps.is_available():
+        torch.mps.empty_cache()
+    elif 'cpu' not in device:
         with torch.cuda.device(device):
             torch.cuda.empty_cache() 
         

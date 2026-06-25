@@ -218,6 +218,10 @@ def run(config:dict,
                 else:
                     device_ids = gpu_device_ids
                 device = f'cuda:{device_ids[0]}'
+            elif torch.backends.mps.is_available():
+                device = 'mps:0' # torch.accelerator.current_accelerator()
+                logging.info(f"MPS is available! You can use the Apple Silicon GPU {device}")
+                device_ids = [device]
             else:
                 logging.info("CUDA not available. Falling back to CPU.")
                 device_ids = []
