@@ -522,17 +522,17 @@ def test(Data,
     logging.info(f'TRAIN/TEST COMPLETE')
     cumRets = np.cumprod(1+returns)
     plt.figure()
-    plt.plot_date(daily_dates[-len(cumRets):], cumRets, marker='None', linestyle='solid')
+    plt.plot(daily_dates[-len(cumRets):], cumRets, marker='None', linestyle='solid')
     plt.savefig(os.path.join(output_path, model_tag + "_cumulative-returns.png"))
     #plt.show()
 
     plt.figure()
-    plt.plot_date(daily_dates[-len(cumRets):], turnovers, marker='None',linestyle='solid')
+    plt.plot(daily_dates[-len(cumRets):], turnovers, marker='None',linestyle='solid')
     plt.savefig(os.path.join(output_path, model_tag + "_turnover.png"))
     #plt.show()
                          
     plt.figure()
-    plt.plot_date(daily_dates[-len(cumRets):], short_proportions, marker='None',linestyle='solid')
+    plt.plot(daily_dates[-len(cumRets):], short_proportions, marker='None',linestyle='solid')
     plt.savefig(os.path.join(output_path, model_tag + "_short-proportion.png"))
     #plt.show()
     
